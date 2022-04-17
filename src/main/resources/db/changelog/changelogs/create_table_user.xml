@@ -1,0 +1,34 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+    <changeSet id="1" author="Yaminov Damir">
+        <preConditions onFail="MARK_RAN">
+            <not>
+                <tableExists tableName="auth_user"/>
+            </not>
+        </preConditions>
+        <createTable tableName="auth_user">
+            <column name="id" type="bigserial">
+                <constraints primaryKey="true"/>
+            </column>
+            <column name="login" type="varchar">
+                <constraints unique="true"/>
+            </column>
+            <column name="email" type="varchar">
+                <constraints unique="true"/>
+            </column>
+            <column name="password" type="varchar"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="2" author="Yaminov Damir">
+        <preConditions onFail="MARK_RAN">
+            <sqlCheck expectedResult="0">select count(*) from auth_user</sqlCheck>
+        </preConditions>
+        <insert tableName="auth_user">
+            <column name="login" value="11188005553535"/>
+            <column name="email" value="damir@damir.damir"/>
+            <column name="password" value="$2a$12$1F98.0Ograe.x555GFMMP.sqJssisFx4EJEZVz3cZBAjhVMXxjLWG"/>
+        </insert>
+    </changeSet>
+</databaseChangeLog>
